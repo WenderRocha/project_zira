@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\PayableController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RevenueController;
@@ -78,6 +79,14 @@ Route::get('/financeiro/receber', [ReceiveController::class, 'index'])
 Route::post('/financeiro/receber', [ReceiveController::class, 'store'])
 ->middleware(['auth', 'verified'])
 ->name('receive.store');
+
+
+Route::get('/financeiro/pagar', [PayableController::class, 'index'])
+->middleware(['auth', 'verified'])
+->name('payable.index');
+Route::post('/financeiro/pagar', [PayableController::class, 'store'])
+->middleware(['auth', 'verified'])
+->name('payable.store');
 
 
 

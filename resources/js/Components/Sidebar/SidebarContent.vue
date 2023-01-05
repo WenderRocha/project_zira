@@ -68,6 +68,12 @@ import { TemplateIcon } from '@heroicons/vue/outline'
             />
 
             <SidebarCollapsibleItem
+                :href="route('payable.index')"
+                title="A pagar"
+                :active="route().current('payable.index')"
+            />
+
+            <SidebarCollapsibleItem
                 :href="route('components.buttons')"
                 title="Buttons"
                 :active="route().current('components.buttons')"

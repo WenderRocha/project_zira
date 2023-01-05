@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Payable;
+use App\Models\Expense;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Expense extends Model
+class Payable extends Model
 {
     use HasFactory;
 
-    public function payables()
+    public function expense()
     {
-        $this->hasMany(Payable::class);
+        $this->belongsTo(Expense::class);
     }
 }

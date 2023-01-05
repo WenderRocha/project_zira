@@ -1,58 +1,56 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/inertia-vue3'
+import { MailIcon, PaperAirplaneIcon } from '@heroicons/vue/outline'
+import InputIconWrapper from '@/Components/InputIconWrapper.vue'
+import Button from '@/Components/Button.vue'
+import GuestLayout from '@/Layouts/Guest.vue'
+import Input from '@/Components/Input.vue'
+import Label from '@/Components/Label.vue'
+import ValidationErrors from '@/Components/ValidationErrors.vue'
 
 defineProps({
-    status: String,
-});
+    status: String
+})
 
 const form = useForm({
-    email: '',
-});
+    email: ''
+})
 
 const submit = () => {
-    form.post(route('password.email'));
-};
+    form.post(route('password.email'))
+}
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Forgot Password" />
-
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset
-            link that will allow you to choose a new one.
+    <GuestLayout title="Forgot Password">
+        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
         </div>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
         </div>
 
+        <ValidationErrors class="mb-4" />
+
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+            <div class="grid gap-6">
+                <div class="space-y-2">
+                    <Label for="email" value="Email" />
+                    <InputIconWrapper>
+                        <template #icon>
+                            <MailIcon aria-hidden="true" class="w-5 h-5" />
+                        </template>
+                        <Input withIcon id="email" type="email" class="block w-full" placeholder="Email" v-model="form.email" required autofocus autocomplete="username" />
+                    </InputIconWrapper>
+                </div>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
-                </PrimaryButton>
+                <div>
+                    <Button class="justify-center gap-2 w-full" :disabled="form.processing" v-slot="{ iconSizeClasses }">
+                        <PaperAirplaneIcon aria-hidden="true" :class="iconSizeClasses" />
+                        <span>Email Password Reset Link</span>
+                    </Button>
+                </div>
             </div>
         </form>
     </GuestLayout>

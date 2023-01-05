@@ -1,10 +1,12 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Link, useForm } from '@inertiajs/inertia-vue3'
+import { UserIcon, MailIcon, LockClosedIcon, UserAddIcon } from '@heroicons/vue/outline'
+import GuestLayout from '@/Layouts/Guest.vue'
+import InputIconWrapper from '@/Components/InputIconWrapper.vue'
+import Input from '@/Components/Input.vue'
+import Label from '@/Components/Label.vue'
+import ValidationErrors from '@/Components/ValidationErrors.vue'
+import Button from '@/Components/Button.vue'
 
 const form = useForm({
     name: '',
@@ -12,93 +14,76 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     terms: false,
-});
+})
 
 const submit = () => {
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
+    })
+}
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Register" />
+    <GuestLayout title="Register">
+        <ValidationErrors class="mb-4" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
+            <div class="grid gap-6">
+                <div class="space-y-2">
+                    <Label for="name" value="Name" />
+                    <InputIconWrapper>
+                        <template #icon>
+                            <UserIcon aria-hidden="true" class="w-5 h-5" />
+                        </template>
+                        <Input withIcon id="name" type="text" placeholder="Name" class="block w-full" v-model="form.name" required autofocus autocomplete="name" />
+                    </InputIconWrapper>
+                </div>
 
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
+                <div class="space-y-2">
+                    <Label for="email" value="Email" />
+                    <InputIconWrapper>
+                        <template #icon>
+                            <MailIcon aria-hidden="true" class="w-5 h-5" />
+                        </template>
+                        <Input withIcon id="email" type="email" class="block w-full" placeholder="Email" v-model="form.email" required autocomplete="username" />
+                    </InputIconWrapper>
+                </div>
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <div class="space-y-2">
+                    <Label for="password" value="Password" />
+                    <InputIconWrapper>
+                        <template #icon>
+                            <LockClosedIcon aria-hidden="true" class="w-5 h-5" />
+                        </template>
+                        <Input withIcon id="password" type="password" class="block w-full" placeholder="Password" v-model="form.password" required autocomplete="new-password" />
+                    </InputIconWrapper>
+                </div>
+
+                <div class="space-y-2">
+                    <Label for="password_confirmation" value="Confirm Password" />
+                    <InputIconWrapper>
+                        <template #icon>
+                            <LockClosedIcon aria-hidden="true" class="w-5 h-5" />
+                        </template>
+                        <Input withIcon id="password_confirmation" type="password" class="block w-full" placeholder="Confirm Password" v-model="form.password_confirmation" required autocomplete="new-password" />
+                    </InputIconWrapper>
+                </div>
+
+                <div>
+                    <Button class="justify-center gap-2 w-full" :disabled="form.processing" v-slot="{ iconSizeClasses }">
+                        <UserAddIcon aria-hidden="true" :class="iconSizeClasses" />
+                        <span>Register</span>
+                    </Button>
+                </div>
+
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Already have an account?
+                    <Link :href="route('login')" class="text-blue-500 hover:underline">
+                        Login
+                    </Link>
+                </p>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
-            </div>
         </form>
     </GuestLayout>
 </template>

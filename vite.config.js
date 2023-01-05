@@ -20,4 +20,9 @@ export default defineConfig({
 
         vueJSX(),
     ],
+    server: {
+        hmr: {
+            host: 'localhost'
+        }
+    }
 })

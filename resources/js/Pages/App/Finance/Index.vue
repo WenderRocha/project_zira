@@ -4,10 +4,6 @@ import Button from '@/Components/Button.vue'
 import { GithubIcon } from '@/Components/Icons/brands'
 
 
-const props = defineProps({
-    wallets: Object
-})
-
 </script>
 
 <template>
@@ -15,7 +11,7 @@ const props = defineProps({
         <template #header>
             <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <h2 class="text-xl font-semibold leading-tight">
-                    Carteiras {{ wallets.length }}
+                    Financeiro
                 </h2>
 
                 <Button

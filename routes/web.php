@@ -4,7 +4,10 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RevenueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +38,28 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
-    Route::post('/wallet', [WalletController::class, 'store'])->name('wallet.store');
+    Route::get('/carteira', [WalletController::class, 'index'])->name('wallet.index');
+    Route::get('/carteira/{id}', [WalletController::class, 'show'])->name('wallet.show');
+    Route::post('/carteira', [WalletController::class, 'store'])->name('wallet.store');
 });
+
+Route::get('/financeiro', [FinanceController::class, 'index'])
+->middleware(['auth', 'verified'])
+->name('finance.index');
+
+Route::get('/financeiro/receita', [RevenueController::class, 'index'])
+->middleware(['auth', 'verified'])
+->name('finance.revenue');
+
+Route::post('/financeiro/receita', [RevenueController::class, 'store'])
+->middleware(['auth', 'verified'])
+->name('finance.revenue');
+
+Route::get('/financeiro/despesa', [ExpenseController::class, 'index'])
+->middleware(['auth', 'verified'])
+->name('finance.expense');
+
+
 
 Route::get('/components/buttons', function () {
     return Inertia::render('Components/Buttons');

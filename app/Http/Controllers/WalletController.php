@@ -22,13 +22,11 @@ class WalletController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $wallets = $this->walletService->getAllWalletsByUser($user);
 
-        //dd($this->walletService->getWalletByUser($user, 1));
-        //dd($this->walletService->getAllWalletByUser($user));
-
-       
-
-        return Inertia::render('App/Wallet/Index');
+        return Inertia::render('App/Wallet/Index', [
+            'wallets' => $wallets
+        ]);
     }
 
 
@@ -37,9 +35,10 @@ class WalletController extends Controller
         
     }
 
-    public function show(Wallet $wallet)
+    public function show($id)
     {
-        //
+        $user = Auth::user();
+        dd($this->walletService->getWalletByUser($user, $id));
     }
 
     public function edit(Wallet $wallet)

@@ -46,6 +46,6 @@ class WalletService implements WalletServiceInterface
 
     public function getAllWalletsByUser(User $user)
     {
-      return $user::with('wallets')->get();
+      return $user->wallets;
     }
 }

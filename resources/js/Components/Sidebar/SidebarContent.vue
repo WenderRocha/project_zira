@@ -27,8 +27,8 @@ import { TemplateIcon } from '@heroicons/vue/outline'
         </SidebarLink>
 
         <SidebarCollapsible
-            title="Components"
-            :active="route().current('components.*')"
+            title="Financeiro"
+            :active="route().current('finance.*')"
         >
             <template #icon>
                 <TemplateIcon
@@ -36,6 +36,24 @@ import { TemplateIcon } from '@heroicons/vue/outline'
                     aria-hidden="true"
                 />
             </template>
+
+            <SidebarCollapsibleItem
+                :href="route('finance.index')"
+                title="Controle Financeiro"
+                :active="route().current('finance.index')"
+            />
+
+            <SidebarCollapsibleItem
+                :href="route('finance.revenue')"
+                title="Receita"
+                :active="route().current('finance.revenue')"
+            />
+
+            <SidebarCollapsibleItem
+                :href="route('finance.expense')"
+                title="Despesa"
+                :active="route().current('finance.expense')"
+            />
 
             <SidebarCollapsibleItem
                 :href="route('components.buttons')"

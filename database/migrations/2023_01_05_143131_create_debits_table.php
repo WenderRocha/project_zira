@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('debits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('expense_id')->constrained('expenses');
+            $table->foreignId('payable_id')->constrained('payables');
             $table->foreignId('payment_method_id')->constrained('payment_methods');
             $table->foreignId('wallet_id')->constrained('wallets');
             $table->date('pay_date');

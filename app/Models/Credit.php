@@ -12,6 +12,15 @@ class Credit extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'receive_id',
+        'payment_method_id',
+        'wallet_id',
+        'pay_date',
+        'value'
+    ];
+
+
     public function receive()
     {
         $this->belongsTo(Receive::class);

@@ -11,13 +11,13 @@ class Expense extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function payables()
     {
         $this->hasMany(Payable::class);
     }
 
-    public function debits()
-    {
-        $this->hasMany(Debit::class);
-    }
 }

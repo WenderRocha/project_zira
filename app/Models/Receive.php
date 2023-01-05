@@ -11,6 +11,15 @@ class Receive extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'revenue_id',
+        'due_date',
+        'history',
+        'value',
+        'paid',
+    ];
+
+
     public function revenue()
     {
         $this->belongsTo(Revenue::class);

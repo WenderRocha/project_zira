@@ -10,6 +10,14 @@ class Debit extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'payable_id',
+        'payment_method_id',
+        'wallet_id',
+        'pay_date',
+        'value'
+    ];
+
     public function expense()
     {
         $this->belongsTo(Expense::class);

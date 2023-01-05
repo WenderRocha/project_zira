@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentMethod extends Model
 {
     use HasFactory;
+
+    public function credits()
+    {
+        $this->hasMany(Credit::class);
+    }
+
+    public function debits()
+    {
+        $this->hasMany(Debit::class);
+    }
 }

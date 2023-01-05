@@ -31,4 +31,14 @@ class Wallet extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function credits()
+    {
+        $this->hasMany(Credit::class);
+    }
+
+    public function debits()
+    {
+        $this->hasMany(Debit::class);
+    }
 }

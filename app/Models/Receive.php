@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Receive;
+use App\Models\Revenue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Revenue extends Model
+class Receive extends Model
 {
     use HasFactory;
 
-    public function receives()
+    public function revenue()
     {
-        $this->hasMany(Receive::class);
+        $this->belongsTo(Revenue::class);
     }
 }

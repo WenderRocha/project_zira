@@ -28,7 +28,7 @@ import { TemplateIcon } from '@heroicons/vue/outline'
 
         <SidebarCollapsible
             title="Financeiro"
-            :active="route().current('finance.*')"
+            :active="route().current('financeiro.*')"
         >
             <template #icon>
                 <TemplateIcon
@@ -45,13 +45,13 @@ import { TemplateIcon } from '@heroicons/vue/outline'
 
             <SidebarCollapsibleItem
                 :href="route('finance.revenue')"
-                title="Receita"
+                title="Receitas"
                 :active="route().current('finance.revenue')"
             />
 
             <SidebarCollapsibleItem
                 :href="route('finance.expense')"
-                title="Despesa"
+                title="Despesas"
                 :active="route().current('finance.expense')"
             />
 
@@ -59,6 +59,12 @@ import { TemplateIcon } from '@heroicons/vue/outline'
                 :href="route('paymentMethod.index')"
                 title="Formas de Pagamento"
                 :active="route().current('paymentMethod.index')"
+            />
+
+            <SidebarCollapsibleItem
+                :href="route('receive.index')"
+                title="A receber"
+                :active="route().current('receive.index')"
             />
 
             <SidebarCollapsibleItem

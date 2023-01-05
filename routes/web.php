@@ -7,6 +7,7 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RevenueController;
 use App\Http\Controllers\PaymentMethodController;
 
@@ -52,7 +53,6 @@ Route::get('/financeiro', [FinanceController::class, 'index'])
 Route::get('/financeiro/receita', [RevenueController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('finance.revenue');
-
 Route::post('/financeiro/receita', [RevenueController::class, 'store'])
 ->middleware(['auth', 'verified'])
 ->name('finance.revenue');
@@ -60,15 +60,24 @@ Route::post('/financeiro/receita', [RevenueController::class, 'store'])
 Route::get('/financeiro/despesa', [ExpenseController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('finance.expense');
-
 Route::post('/financeiro/despesa', [ExpenseController::class, 'store'])
 ->middleware(['auth', 'verified'])
 ->name('finance.expense');
 
 
-Route::get('/formas-de-pagamento', [PaymentMethodController::class, 'index'])
+Route::get('/financeiro/formas-de-pagamento', [PaymentMethodController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('paymentMethod.index');
+Route::post('/financeiro/formas-de-pagamento', [PaymentMethodController::class, 'store'])
+->middleware(['auth', 'verified'])
+->name('paymentMethod.store');
+
+Route::get('/financeiro/receber', [ReceiveController::class, 'index'])
+->middleware(['auth', 'verified'])
+->name('receive.index');
+Route::post('/financeiro/receber', [ReceiveController::class, 'store'])
+->middleware(['auth', 'verified'])
+->name('receive.store');
 
 
 

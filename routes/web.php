@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RevenueController;
+use App\Http\Controllers\PaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/carteira', [WalletController::class, 'store'])->name('wallet.store');
 });
 
+
 Route::get('/financeiro', [FinanceController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('finance.index');
@@ -58,6 +60,15 @@ Route::post('/financeiro/receita', [RevenueController::class, 'store'])
 Route::get('/financeiro/despesa', [ExpenseController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('finance.expense');
+
+Route::post('/financeiro/despesa', [ExpenseController::class, 'store'])
+->middleware(['auth', 'verified'])
+->name('finance.expense');
+
+
+Route::get('/formas-de-pagamento', [PaymentMethodController::class, 'index'])
+->middleware(['auth', 'verified'])
+->name('paymentMethod.index');
 
 
 

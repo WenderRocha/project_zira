@@ -56,6 +56,12 @@ import { TemplateIcon } from '@heroicons/vue/outline'
             />
 
             <SidebarCollapsibleItem
+                :href="route('paymentMethod.index')"
+                title="Formas de Pagamento"
+                :active="route().current('paymentMethod.index')"
+            />
+
+            <SidebarCollapsibleItem
                 :href="route('components.buttons')"
                 title="Buttons"
                 :active="route().current('components.buttons')"

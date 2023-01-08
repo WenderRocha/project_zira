@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Debit;
 use App\Models\Expense;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ class Payable extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'expenses_id',
         'due_date',
         'history',
@@ -19,6 +21,10 @@ class Payable extends Model
         'paid',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function expense()
     {

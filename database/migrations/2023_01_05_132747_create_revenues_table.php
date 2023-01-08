@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('revenues', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable(false)->unique();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('name')->nullable(false);
             $table->timestamps();
         });
     }

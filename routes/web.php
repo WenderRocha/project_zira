@@ -51,17 +51,30 @@ Route::get('/financeiro', [FinanceController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('finance.index');
 
-Route::get('/financeiro/receita', [RevenueController::class, 'index'])
+Route::get('/financeiro/tipos-de-receita', [RevenueController::class, 'index'])
 ->middleware(['auth', 'verified'])
-->name('finance.revenue');
-Route::post('/financeiro/receita', [RevenueController::class, 'store'])
-->middleware(['auth', 'verified'])
-->name('finance.revenue');
+->name('revenue.index');
 
-Route::get('/financeiro/despesa', [ExpenseController::class, 'index'])
+Route::get('/financeiro/tipos-de-receita/{id}', [RevenueController::class, 'edit'])
+->middleware(['auth', 'verified'])
+->name('revenue.edit');
+
+Route::put('/financeiro/tipos-de-receita/{id}', [RevenueController::class, 'update'])
+->middleware(['auth', 'verified'])
+->name('revenue.update');
+
+Route::post('/financeiro/tipos-de-receita', [RevenueController::class, 'store'])
+->middleware(['auth', 'verified'])
+->name('revenue.store');
+
+Route::delete('/financeiro/tipos-de-receita/{id}', [RevenueController::class, 'destroy'])
+->middleware(['auth', 'verified'])
+->name('revenue.destroy');
+
+Route::get('/financeiro/tipos-de-despesa', [ExpenseController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('finance.expense');
-Route::post('/financeiro/despesa', [ExpenseController::class, 'store'])
+Route::post('/financeiro/tipos-de-despesa', [ExpenseController::class, 'store'])
 ->middleware(['auth', 'verified'])
 ->name('finance.expense');
 

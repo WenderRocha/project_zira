@@ -4,6 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Wallet;
+use App\Models\Expense;
+use App\Models\Payable;
+use App\Models\Receive;
+use App\Models\Revenue;
+use App\Models\PaymentMethod;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,5 +51,30 @@ class User extends Authenticatable
     public function wallets()
     {
         return $this->hasMany(Wallet::class);
+    }
+
+    public function revenues()
+    {
+        return $this->hasMany(Revenue::class);
+    }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    public function paymentMethods()
+    {
+        return $this->hasMany(PaymentMethod::class);
+    }
+
+    public function receives()
+    {
+        return $this->hasMany(Receive::class);
+    }
+
+    public function payables()
+    {
+        return $this->hasMany(Payable::class);
     }
 }

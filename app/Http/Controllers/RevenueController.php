@@ -6,79 +6,52 @@ use Inertia\Inertia;
 use App\Models\Revenue;
 use App\Http\Requests\StoreRevenueRequest;
 use App\Http\Requests\UpdateRevenueRequest;
+use App\Services\Revenue\RevenueServiceInterface;
+use Illuminate\Support\Facades\Auth;
 
 class RevenueController extends Controller
 {
 
+    public function __construct(
+        protected RevenueServiceInterface $revenueService
+    )
+    {}
 
     public function index()
     {
-        return Inertia::render('App/Finance/Revenue/Index');
+        $user = Auth::user();
+
+        $revenues = $this->revenueService->getAllRevenuesByUser($user);
+        return Inertia::render('App/Finance/Revenue/Index', [
+            'revenues' => $revenues
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreRevenueRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreRevenueRequest $request)
     {
-        //
+        return $this->revenueService->create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Revenue  $revenue
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Revenue $revenue)
+    public function edit(int $id)
     {
-        //
+        $user = Auth::user();
+        $revenue = $this->revenueService->getRevenueByUser($user, $id);
+        $revenues = $this->revenueService->getAllRevenuesByUser($user);
+
+        return Inertia::render('App/Finance/Revenue/Index', [
+            'revenue' => $revenue,
+            'revenues' => $revenues,
+            'showEditModal' => true
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Revenue  $revenue
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Revenue $revenue)
+    public function update(UpdateRevenueRequest $request, int $id)
     {
-        //
+        return $this->revenueService->update($id, $request->all());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateRevenueRequest  $request
-     * @param  \App\Models\Revenue  $revenue
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateRevenueRequest $request, Revenue $revenue)
+    public function destroy(int $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Revenue  $revenue
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Revenue $revenue)
-    {
-        //
+        return $this->revenueService->delete($id);
     }
 }

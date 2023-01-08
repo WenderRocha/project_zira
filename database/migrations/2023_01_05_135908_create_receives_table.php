@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('receives', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('revenue_id')->constrained('revenues');
             $table->date('due_date');
             $table->string('history')->nullable(false);

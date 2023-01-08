@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Credit;
 use App\Models\Revenue;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ class Receive extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'revenue_id',
         'due_date',
         'history',
@@ -19,7 +21,11 @@ class Receive extends Model
         'paid',
     ];
 
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
     public function revenue()
     {
         $this->belongsTo(Revenue::class);

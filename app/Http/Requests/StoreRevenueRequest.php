@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreRevenueRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreRevenueRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +25,18 @@ class StoreRevenueRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            //
+            'name' => "required|max:30|min:4",
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'Por favor digite o nome do tipo de receita.',
+            'min' => 'O nome do tipo de receita deve ter no minimo 3 caracteres.',
+            'max' => 'O nome da tipo de receita deve ter no máximo 30 caracteres.'
         ];
     }
 }

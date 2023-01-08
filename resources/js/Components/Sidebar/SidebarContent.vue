@@ -44,14 +44,14 @@ import { TemplateIcon } from '@heroicons/vue/outline'
             />
 
             <SidebarCollapsibleItem
-                :href="route('finance.revenue')"
-                title="Receitas"
-                :active="route().current('finance.revenue')"
+                :href="route('revenue.index')"
+                title="Tipos de receitas"
+                :active="route().current('revenue.index')"
             />
 
             <SidebarCollapsibleItem
                 :href="route('finance.expense')"
-                title="Despesas"
+                title="Tipos de despesas"
                 :active="route().current('finance.expense')"
             />
 

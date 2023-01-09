@@ -13,7 +13,7 @@ class StoreExpenseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,18 @@ class StoreExpenseRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            //
+            'name' => "required|max:30|min:4",
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'Por favor digite o nome do tipo de despesa.',
+            'min' => 'O nome do tipo de despesa deve ter no minimo 3 caracteres.',
+            'max' => 'O nome do tipo de despesa deve ter no máximo 30 caracteres.'
         ];
     }
 }

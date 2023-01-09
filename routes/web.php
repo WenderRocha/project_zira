@@ -71,12 +71,29 @@ Route::delete('/financeiro/tipos-de-receita/{id}', [RevenueController::class, 'd
 ->middleware(['auth', 'verified'])
 ->name('revenue.destroy');
 
+
+
 Route::get('/financeiro/tipos-de-despesa', [ExpenseController::class, 'index'])
-->middleware(['auth', 'verified'])
-->name('finance.expense');
+    ->middleware(['auth', 'verified'])
+    ->name('expense.index');
+
+Route::get('/financeiro/tipos-de-despesa/{id}', [ExpenseController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('expense.edit');
+
+Route::put('/financeiro/tipos-de-despesa/{id}', [ExpenseController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('expense.update');
+
 Route::post('/financeiro/tipos-de-despesa', [ExpenseController::class, 'store'])
-->middleware(['auth', 'verified'])
-->name('finance.expense');
+    ->middleware(['auth', 'verified'])
+    ->name('expense.store');
+
+Route::delete('/financeiro/tipos-de-despesa/{id}', [ExpenseController::class, 'destroy'])
+    ->middleware(['auth', 'verified'])
+    ->name('expense.destroy');
+
+
 
 
 Route::get('/financeiro/formas-de-pagamento', [PaymentMethodController::class, 'index'])

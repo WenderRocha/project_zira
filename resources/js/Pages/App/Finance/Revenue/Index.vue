@@ -51,8 +51,8 @@ const revenueForm = useForm({
             <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <h2 class="text-xl font-semibold leading-tight"> Tipos de Receita</h2>
 
-                <Button @click="showModal" variant="primary" class="items-center gap-2 max-w-xs">
-                    <span>Nova Receita</span>
+                <Button @click="showModal" variant="success" class="items-center gap-2 max-w-xs">
+                    <span>Nova categoria</span>
                 </Button>
             </div>
         </template>
@@ -144,7 +144,7 @@ const revenueForm = useForm({
                         <button @click="closeModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                             Cancelar
                         </button>
-                        <Button :disabled="revenueEditForm.processing"
+                        <Button :disabled="revenueForm.processing"
                                 @click="defaultSubmit(revenueForm,
                                         route('revenue.store'),
                                         'Tipo de receita cadastrado com sucesso!',

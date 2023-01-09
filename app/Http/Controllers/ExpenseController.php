@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Expense\ExpenseServiceInterface;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\Expense;
 use App\Http\Requests\StoreExpenseRequest;
@@ -10,74 +12,48 @@ use App\Http\Requests\UpdateExpenseRequest;
 class ExpenseController extends Controller
 {
 
+    public function __construct(
+        protected ExpenseServiceInterface $expenseService
+    )
+    {
+    }
+
     public function index()
     {
-        return Inertia::render('App/Finance/Expense/Index');
+        $user = Auth::user();
+
+        $expenses = $this->expenseService->getAllExpensesByUser($user);
+        return Inertia::render('App/Finance/Expense/Index', [
+            'expenses' =>  $expenses
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreExpenseRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreExpenseRequest $request)
     {
-        //
+        return $this->expenseService->create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Expense  $expense
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Expense $expense)
+
+    public function edit(int $id)
     {
-        //
+        $user = Auth::user();
+        $expense = $this->expenseService->getExpenseByUser($user, $id);
+        $expenses = $this->expenseService->getAllExpensesByUser($user);
+
+        return Inertia::render('App/Finance/Expense/Index', [
+            'expense' => $expense,
+            'expenses' => $expenses,
+            'showEditModal' => true
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Expense  $expense
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Expense $expense)
+    public function update(UpdateExpenseRequest $request, int $id)
     {
-        //
+        return $this->expenseService->update($id, $request->all());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateExpenseRequest  $request
-     * @param  \App\Models\Expense  $expense
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateExpenseRequest $request, Expense $expense)
+    public function destroy(int $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Expense  $expense
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Expense $expense)
-    {
-        //
+        return $this->expenseService->delete($id);
     }
 }

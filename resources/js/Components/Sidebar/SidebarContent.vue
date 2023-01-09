@@ -50,7 +50,7 @@ import { TemplateIcon } from '@heroicons/vue/outline'
             />
 
             <SidebarCollapsibleItem
-                :href="route('finance.expense')"
+                :href="route('expense.index')"
                 title="Tipos de despesas"
                 :active="route().current('finance.expense')"
             />

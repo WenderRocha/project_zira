@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 
+use App\Services\Expense\ExpenseService;
+use App\Services\Expense\ExpenseServiceInterface;
 use App\Services\Wallet\WalletService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Wallet\WalletServiceInterface;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(WalletServiceInterface::class, WalletService::class);
         $this->app->bind(RevenueServiceInterface::class, RevenueService::class);
+        $this->app->bind(ExpenseServiceInterface::class, ExpenseService::class);
     }
 
     /**
